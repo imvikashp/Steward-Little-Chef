@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// Demo rules for the Spice Junction ordering app.
+// The app has no Firebase Auth sign-in (it identifies a customer only by the
+// mobile number they type), so these rules are open. Paste them into
+// Firebase console > Firestore Database > Rules, and tighten them before
+// putting real customer data in this project.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // users/{mobileNumber}
+    match /users/{mobile} {
+      allow read, write: if true;
+    }
+
+    // orders/{orderId} - written by the customer app, advanced by the chef app
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    // bots/{botId} - delivery bots owned by the chef dashboard
+    match /bots/{botId} {
+      allow read, write: if true;
+    }
+
+    // history/{orderId} - delivered orders archived by the chef dashboard
+    match /history/{orderId} {
+      allow read, write: if true;
+    }
+  }
+}
